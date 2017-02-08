@@ -1,0 +1,11 @@
+version: '2'
+services:
+    nodepki:
+        build: .
+        ports:
+            - "8081:8081"
+            - "2560:2560"
+            - "2561:2561"
+        volumes:
+            - "./mypki/:/root/nodepki-0.1.1/mypki"
+        dns: 8.8.8.8

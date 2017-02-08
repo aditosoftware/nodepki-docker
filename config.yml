@@ -1,0 +1,40 @@
+###
+### Server config: IP-Address and port to listen to.
+###
+
+server:
+    ip: 172.18.0.2
+    port: 8081
+
+
+###
+### CA config: Passphrase for CA Key
+###
+
+ca:
+    passphrase: yyyy
+
+
+###
+### OCSP server config:
+### IP-Address and port to listen to,
+### Passphrase used to encrypt the OCSP signing key.
+### Password and URL are used to generate PKI. If you want to change these settings, you have to re-create your pki!
+###
+
+ocsp:
+    ip: 172.18.0.2
+    port: 2560
+    passphrase: yyyy
+    url: http://ocsp.adito.local
+
+
+###
+### CRL HTTP server config
+### baseurl used to generate PKI. If you want to change these settings, you have to re-create your pki!
+###
+
+crl:
+    ip: 172.18.0.2
+    port: 2561
+    url: http://crl.adito.local/crl.pem
