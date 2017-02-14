@@ -10,3 +10,4 @@ services:
             - "./mypki/:/root/nodepki/mypki"
             - "./config/nodepki/:/root/nodepki/config"
             - "./config/nodepki-client/:/root/nodepki-client/config"
+            - "./certs/:/root/nodepki-client/out"

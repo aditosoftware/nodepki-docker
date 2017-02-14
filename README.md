@@ -26,6 +26,7 @@ Creates config/ and mypki/ dir in host directory.
 
     sudo docker-compose up
 
+
 ## Use integrated client
 
 (in another shell instance)
@@ -33,3 +34,9 @@ Creates config/ and mypki/ dir in host directory.
     sudo docker exec -it nodepkidocker_nodepki_1 /bin/bash
     cd ../nodepki-client/
     nodejs client.js
+
+Request a certificate
+
+    nodejs client request --out out/
+
+The created cert.pem and key.pem are located in the "certs" directory on the host and in the "out" directory in the container.
