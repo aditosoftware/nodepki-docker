@@ -39,4 +39,4 @@ Request a certificate
 
     nodejs client request --out out/
 
-The created cert.pem and key.pem are located in the "certs" directory on the host and in the "out" directory in the container.
+The created cert.pem and key.pem are located in the "certs" directory on the host and in the "out" directory in the container. For further information see [NodePKI-Client README](https://github.com/ThomasLeister/nodepki-client/blob/master/README.md).
