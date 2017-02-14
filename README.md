@@ -6,23 +6,22 @@
 * Download and install docker-compose: https://docs.docker.com/compose/install/
 * Download this Git repo
 
-    ```
+
     git clone git@github.com:ThomasLeister/nodepki-docker.git
     cd nodepki-docker
-    ```
 
 ## Build Docker image
 
     /bin/bash prepare.sh
     sudo docker-compose build
 
-## Prepare Docker image
+## Prepare container / Create persistent data
 
     sudo docker-compose run nodepki /bin/bash /root/setup.sh
 
 Creates config/ and mypki/ dir in host directory.
 
-## Start docker container
+## Start Docker container
 
     sudo docker-compose up
 
