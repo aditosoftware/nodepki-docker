@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:xenial
 
 RUN apt update && apt install -y \
     nodejs \
