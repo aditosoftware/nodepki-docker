@@ -6,9 +6,10 @@
 * Download and install docker-compose: https://docs.docker.com/compose/install/
 * Download this Git repo
 
-
-    git clone git@github.com:ThomasLeister/nodepki-docker.git
-    cd nodepki-docker
+```
+git clone git@github.com:ThomasLeister/nodepki-docker.git
+cd nodepki-docker
+```
 
 ## Build Docker image
 
