@@ -1,3 +1,4 @@
 mypki/
-nodepki
-nodepki-client
+nodepki/
+nodepki-client/
+config/
