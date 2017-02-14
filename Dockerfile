@@ -3,16 +3,16 @@ FROM ubuntu:latest
 RUN apt update && apt install -y \
     nodejs \
     npm \
-    openssl \
-    unzip
+    openssl
 
-ADD nodepki-0.2.zip /root/
+ADD nodepki /root/nodepki
+ADD nodepki-client /root/nodepki-client
 
-WORKDIR /root
-RUN unzip nodepki-* && rm nodepki*.zip && rename 's/(.*)/nodepki/' nodepki*
+### Add setup script to create persistent content
+ADD setup.sh /root/
 
-### Add nodepki config file
-ADD config.yml /root/nodepki
+WORKDIR /root/nodepki-client
+RUN npm install
 
 WORKDIR /root/nodepki
 RUN npm install

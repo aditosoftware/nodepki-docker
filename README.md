@@ -12,16 +12,24 @@
     ```
 
 ## Build Docker image
-(as root)
 
-    docker-compose build
+    /bin/bash prepare.sh
+    sudo docker-compose build
 
 ## Prepare Docker image
-*Runs ```nodejs genpki.js``` to create new PKI in mypki directory.*
 
-    docker-compose run nodepki nodejs genpki.js
+    sudo docker-compose run nodepki /bin/bash /root/setup.sh
 
-The mypki directory is available on the host.
+Creates config/ and mypki/ dir in host directory.
 
 ## Start docker container
-    docker-compose up
+
+    sudo docker-compose up
+
+## Use integrated client
+
+(in another shell instance)
+
+    sudo docker exec -it nodepkidocker_nodepki_1 /bin/bash
+    cd ../nodepki-client/
+    nodejs client.js
