@@ -3,8 +3,8 @@ services:
     nodepki:
         build: .
         ports:
+            - "0.0.0.0:8080:8080"
             - "0.0.0.0:8081:8081"
-            - "0.0.0.0:2560:2560"
             - "0.0.0.0:2561:2561"
         volumes:
             - "./mypki/:/root/nodepki/mypki"
