@@ -18,7 +18,7 @@ cd nodepki-docker
 
 ## Prepare container / Create persistent data
 
-    sudo docker-compose run nodepki /bin/bash /root/setup.sh
+    sudo docker-compose run -e API_USERNAME=thomas -e API_PASSWORD=test nodepki /bin/bash /root/setup.sh
 
 Creates config/ and mypki/ dir in host directory.
 

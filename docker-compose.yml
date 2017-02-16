@@ -11,3 +11,5 @@ services:
             - "./config/nodepki/:/root/nodepki/config"
             - "./config/nodepki-client/:/root/nodepki-client/config"
             - "./certs/:/root/nodepki-client/out"
+        extra_hosts:
+            - "ca.adito.local:127.0.0.1"
