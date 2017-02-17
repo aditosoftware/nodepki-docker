@@ -66,6 +66,20 @@ Request a certificate
 The created cert.pem and key.pem are located in the "certs" directory on the host and in the "out" directory in the container. For further information see [NodePKI-Client README](https://github.com/ThomasLeister/nodepki-client/blob/master/README.md).
 
 
+## Use external client
+
+You can use external [NodePKI-Client](https://github.com/ThomasLeister/nodepki-client/) instances to retrieve certificates by adding another API user account. The external client must be configured to send requests to the container host.
+
+### Add new API user
+
+    sudo docker-compose run nodepki nodejs /root/nodepki/nodepkictl.js useradd --username user1 --password pass
+
+### Remove API user
+
+    sudo docker-compose run nodepki nodejs /root/nodepki/nodepkictl.js userdel --username user1
+
+
+
 ## Exposed ports and volumes
 
 Ports:
