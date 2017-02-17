@@ -51,7 +51,7 @@ You should now backup your configuration files and PKI by copying the data/ dire
     sudo docker-compose up
 
 
-## Use integrated client
+## Using the integrated client
 
 (in another shell instance)
 
@@ -66,7 +66,7 @@ Request a certificate
 The created cert.pem and key.pem are located in the "certs" directory on the host and in the "out" directory in the container. For further information see [NodePKI-Client README](https://github.com/ThomasLeister/nodepki-client/blob/master/README.md).
 
 
-## Use external client
+## Using an external client
 
 You can use external [NodePKI-Client](https://github.com/ThomasLeister/nodepki-client/) instances to retrieve certificates by adding another API user account. The external client must be configured to send requests to the container host.
 
@@ -77,7 +77,6 @@ You can use external [NodePKI-Client](https://github.com/ThomasLeister/nodepki-c
 ### Remove API user
 
     sudo docker-compose run nodepki nodejs /root/nodepki/nodepkictl.js userdel --username user1
-
 
 
 ## Exposed ports and volumes
