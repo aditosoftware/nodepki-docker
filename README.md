@@ -89,3 +89,59 @@ Ports:
 Volumes:
 * data: Contains persistent container data (mounted to /root/nodepki/data/ and /root/nodepki-client/data/)
 * certs: Can be used to transfer and store cert files. (mounted to /root/nodepki-client/out/)
+
+
+
+## Examples
+
+### Certificate for Nginx Webserver
+
+Request root certificate for browser import:
+
+    nodejs client getcacert --ca root --out out/root.cert.pem
+
+Import this file into your webbrowser.
+
+Request new webserver certificate:
+
+    nodejs client request --type server --out out/ --fullchain
+
+(Use domain name as commonName)
+
+Certificates are in certs/[uuid]/ on your host machine. Copy them to your webserver:
+
+    sudo cp key.pem /etc/nginx/myssl/cert.key.pem
+    sudo cp cert.pem /etc/nginx/myssl/fullchain.pem
+
+Reload webserver:
+
+    sudo systemctl restart nginx
+
+
+
+### OpenVPN certificates
+
+#### For server
+
+Get intermediate certificate + root certificate
+
+    nodejs client getcacert --ca intermediate --chain --out out/intermediate.cert.pem
+
+Create Server certificate and key
+
+    nodejs client request --type server --fullchain --out out/
+
+(Use VPN domain name as common name)
+
+    [uuid]/cert.pem and [uuid]/key.pem are server cert and key.
+
+
+#### For client
+
+Get Root cert for client
+
+    nodejs client getcacert --ca root --out out/root.cert.pem
+
+Get Client certificate and key ...
+
+    nodejs client request --type client --out out/
