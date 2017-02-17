@@ -18,8 +18,6 @@ Set API_USERNAME and API_PASSWORD variables in docker-compose.yml. These credent
 
 ## Build Docker image
 
-    chmod u+x prepare.sh
-    ./prepare.sh
     sudo docker-compose build
 
 These commands will download NodePKI and NodePKI-Client from GitHub and build the container image.

@@ -3,10 +3,12 @@ FROM ubuntu:xenial
 RUN apt update && apt install -y \
     nodejs \
     npm \
-    openssl
+    openssl \
+    curl
 
-ADD nodepki /root/nodepki
-ADD nodepki-client /root/nodepki-client
+WORKDIR /root
+RUN curl -L https://github.com/aditosoftware/nodepki/archive/v1.0-rc1.tar.gz | tar xz && mv nodepki-1.0-rc1 nodepki
+RUN curl -L https://github.com/aditosoftware/nodepki-client/archive/v1.0-rc1.tar.gz | tar xz && mv nodepki-client-1.0-rc1 nodepki-client
 
 ### Add setup script to create persistent content
 ADD setup.sh /root/
