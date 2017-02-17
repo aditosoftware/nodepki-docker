@@ -1,5 +1,15 @@
-mypki/
+###
+### Dirs for dynamic app data
+###
+
+certs/
+data/nodepki/
+data/nodepki-client/
+
+
+###
+### Dirs for image preparation
+###
+
 nodepki/
 nodepki-client/
-config/
-certs/

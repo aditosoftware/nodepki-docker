@@ -7,9 +7,8 @@ services:
             - "0.0.0.0:8081:8081"
             - "0.0.0.0:2561:2561"
         volumes:
-            - "./mypki/:/root/nodepki/mypki"
-            - "./config/nodepki/:/root/nodepki/config"
-            - "./config/nodepki-client/:/root/nodepki-client/config"
+            - "./data/nodepki/:/root/nodepki/data"
+            - "./data/nodepki-client/:/root/nodepki-client/data"
             - "./certs/:/root/nodepki-client/out"
         extra_hosts:
             - "ca.adito.local:127.0.0.1"
