@@ -1,11 +1,14 @@
 # NodePKI Docker Image
-   _   _           _      ____  _  _____
-  | \ | | ___   __| | ___|  _ \| |/ /_ _|
-  |  \| |/ _ \ / _` |/ _ \ |_) | ' / | |
-  | |\  | (_) | (_| |  __/  __/| . \ | |
-  |_| \_|\___/ \__,_|\___|_|   |_|\_\___|
 
-   By ADITO Software GmbH
+```   
+_   _           _      ____  _  _____
+| \ | | ___   __| | ___|  _ \| |/ /_ _|
+|  \| |/ _ \ / _` |/ _ \ |_) | ' / | |
+| |\  | (_) | (_| |  __/  __/| . \ | |
+|_| \_|\___/ \__,_|\___|_|   |_|\_\___|
+
+By ADITO Software GmbH
+```
 
 This Docker container contains the [NodePKI API Server](https://github.com/aditosoftware/nodepki/) as well as the [NodePKI reference client](https://github.com/aditosoftware/nodepki-client/).
 
@@ -46,6 +49,66 @@ Now configure NodePKI and NodePKI-Client by editing the config.yml files in data
 
 **Note: PKI settings such as CRL URL, OCSP server URL and CA data cannot be changed during usage! Once you've set these attributes and started using your CA, they will be kept until you create a complete new PKI! Think well about your CA configuration!**
 
+Set domains and urls in data/nodepki/config/config.yml:
+
+    server:
+        ip: 0.0.0.0
+        http:
+            domain: ca.adito.local
+            port: 8080
+        ocsp:
+            domain: ca.adito.local
+            port: 2560
+
+```
+ca > intermediate > ocsp > url: "http://ca.adito.local:2560"
+ca > intermediate > crl > url: "http://ca.adito.local:8080/public/intermediate.crl.pem"
+```
+
+## Configure Nginx proxy
+
+Nginx makes URLs nice and does the TLS / HTTPS job for us.
+
+    server {
+        listen 80;
+        server_name ca.adito.local;
+
+        location /api {
+                rewrite ^ https://$host$request_uri? permanent;
+        }
+
+        location /public {
+                proxy_pass http://localhost:8080/public;
+        }
+    }
+
+    server {
+        listen 443 ssl;
+        server_name ca.adito.local;
+
+        ssl_certificate /etc/nginx/myssl/api.cert.pem;
+        ssl_certificate_key /etc/nginx/myssl/api.key.pem;
+
+        location /api {
+                proxy_pass http://localhost:8080/api;
+        }
+
+        location /public {
+                proxy_pass http://localhost:8080/public;
+        }
+    }
+
+    server {
+        listen 80;
+        server_name ocsp.adito.local;
+
+        location / {
+                proxy_pass http://localhost:2560;
+        }
+    }
+
+api.cert.pem and api.key.pem are the certificate files from the host directory data/nodepki/mypki/apicert/
+
 
 ## Create CA
 
@@ -80,6 +143,17 @@ The created cert.pem and key.pem are located in the "certs" directory on the hos
 
 You can use external [NodePKI-Client](https://github.com/ThomasLeister/nodepki-client/) instances to retrieve certificates by adding another API user account. The external client must be configured to send requests to the container host.
 
+### Setting up secure API access
+
+**Configure client** to use TLS: (data/nodepki-client/config/config.yml):
+
+    server:
+        hostname: ca.adito.local
+        port_plain: 80
+        port_tls: 443
+        tls: true
+
+
 ### Add new API user
 
     sudo docker-compose run nodepki nodejs /root/nodepki/nodepkictl.js useradd --username user1 --password pass
@@ -89,12 +163,12 @@ You can use external [NodePKI-Client](https://github.com/ThomasLeister/nodepki-c
     sudo docker-compose run nodepki nodejs /root/nodepki/nodepkictl.js userdel --username user1
 
 
+
 ## Exposed ports and volumes
 
 Ports:
-* 8080 (Public HTTP server for certificate and CRL retrieval)
-* 8081 (HTTPS API - Authentication required)
-* 2561 (OCSP server)
+* 8080 (API + HTTP server for certificate and CRL retrieval)
+* 2560 (OCSP server)
 
 Volumes:
 * data: Contains persistent container data (mounted to /root/nodepki/data/ and /root/nodepki-client/data/)

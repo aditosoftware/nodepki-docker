@@ -3,9 +3,8 @@ services:
     nodepki:
         build: .
         ports:
-            - "0.0.0.0:8080:8080"
-            - "0.0.0.0:8081:8081"
-            - "0.0.0.0:2560:2560"
+            - "127.0.0.1:8080:8080"
+            - "127.0.0.1:2560:2560"
         volumes:
             - "./data/nodepki/:/root/nodepki/data"
             - "./data/nodepki-client/:/root/nodepki-client/data"
