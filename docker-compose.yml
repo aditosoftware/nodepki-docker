@@ -5,7 +5,7 @@ services:
         ports:
             - "0.0.0.0:8080:8080"
             - "0.0.0.0:8081:8081"
-            - "0.0.0.0:2561:2561"
+            - "0.0.0.0:2560:2560"
         volumes:
             - "./data/nodepki/:/root/nodepki/data"
             - "./data/nodepki-client/:/root/nodepki-client/data"

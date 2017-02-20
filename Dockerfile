@@ -21,9 +21,9 @@ RUN npm install
 
 ### genpki is executed manually with docker-compose run ...
 
+EXPOSE 8080
 EXPOSE 8081
 EXPOSE 2560
-EXPOSE 2561
 
 ### Run server
 CMD nodejs server.js
