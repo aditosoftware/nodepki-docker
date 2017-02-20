@@ -7,7 +7,7 @@
 * Download this Git repo
 
 ```
-git clone git@github.com:ThomasLeister/nodepki-docker.git
+git clone git@github.com:aditosoftware/nodepki-docker.git
 cd nodepki-docker
 ```
 
