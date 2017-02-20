@@ -37,7 +37,7 @@ Now configure NodePKI and NodePKI-Client by editing the config.yml files in data
 
 ## Create CA
 
-When you are ready, create your CA:
+When your configuration is finished, create your CA:
 
     sudo docker-compose run nodepki nodejs /root/nodepki/genpki.js
 
@@ -130,8 +130,7 @@ Create Server certificate and key
     nodejs client request --type server --fullchain --out out/
 
 (Use VPN domain name as common name)
-
-    [uuid]/cert.pem and [uuid]/key.pem are server cert and key.
+[uuid]/cert.pem and [uuid]/key.pem are server cert and key.
 
 
 #### For client
