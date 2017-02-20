@@ -27,7 +27,7 @@ These commands will download NodePKI and NodePKI-Client from GitHub and build th
 
 To create the persistent config files, run the following command:
 
-    sudo docker-compose run nodepki /bin/bash /root/setup.sh
+    sudo docker-compose run nodepki bash /root/setup.sh
 
 
 ## Configure NodePKI and NodePKI-Client
@@ -53,7 +53,7 @@ You should now backup your configuration files and PKI by copying the data/ dire
 
 (in another shell instance)
 
-    sudo docker-compose exec nodepki /bin/bash
+    sudo docker-compose exec nodepki bash
     cd ../nodepki-client/
     nodejs client
 
@@ -80,8 +80,8 @@ You can use external [NodePKI-Client](https://github.com/ThomasLeister/nodepki-c
 ## Exposed ports and volumes
 
 Ports:
-* 8080 (Public HTTP)
-* 8081 (API)
+* 8080 (Public HTTP server for certificate and CRL retrieval)
+* 8081 (HTTPS API - Authentication required)
 * 2561 (OCSP server)
 
 Volumes:
