@@ -1,19 +1,24 @@
-# NodePKI API server Docker Image
+# NodePKI Docker Image
+   _   _           _      ____  _  _____
+  | \ | | ___   __| | ___|  _ \| |/ /_ _|
+  |  \| |/ _ \ / _` |/ _ \ |_) | ' / | |
+  | |\  | (_) | (_| |  __/  __/| . \ | |
+  |_| \_|\___/ \__,_|\___|_|   |_|\_\___|
+
+   By ADITO Software GmbH
+
+This Docker container contains the [NodePKI API Server](https://github.com/aditosoftware/nodepki/) as well as the [NodePKI reference client](https://github.com/aditosoftware/nodepki-client/).
 
 ## Installation
 
 * Install docker-engine: https://docs.docker.com/engine/installation/linux/ubuntu/
 * Download and install docker-compose: https://docs.docker.com/compose/install/
-* Download this Git repo
+* Download this Git repo:
 
 ```
 git clone git@github.com:aditosoftware/nodepki-docker.git
 cd nodepki-docker
 ```
-
-## Configure docker image
-
-Set API_USERNAME and API_PASSWORD variables in docker-compose.yml. These credentials will be used to access the NodePKI-API.
 
 
 ## Build Docker image
@@ -23,7 +28,12 @@ Set API_USERNAME and API_PASSWORD variables in docker-compose.yml. These credent
 These commands will download NodePKI and NodePKI-Client from GitHub and build the container image.
 
 
-## Prepare container and create persistent data
+## Configure docker container environment
+
+Set API_USERNAME and API_PASSWORD variables in docker-compose.yml. These initial credentials will be used to access the NodePKI-API.
+
+
+## Create configuration files
 
 To create the persistent config files, run the following command:
 
@@ -33,6 +43,8 @@ To create the persistent config files, run the following command:
 ## Configure NodePKI and NodePKI-Client
 
 Now configure NodePKI and NodePKI-Client by editing the config.yml files in data/[nodepki/nodepki-client]/config/ on the host.
+
+**Note: PKI settings such as CRL URL, OCSP server URL and CA data cannot be changed during usage! Once you've set these attributes and started using your CA, they will be kept until you create a complete new PKI! Think well about your CA configuration!**
 
 
 ## Create CA
