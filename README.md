@@ -57,12 +57,12 @@ Set domains and urls in data/nodepki/config/config.yml:
             domain: ca.adito.local
             port: 8080
         ocsp:
-            domain: ca.adito.local
+            domain: ocsp.adito.local
             port: 2560
 
 ```
-ca > intermediate > ocsp > url: "http://ca.adito.local:2560"
-ca > intermediate > crl > url: "http://ca.adito.local:8080/public/intermediate.crl.pem"
+ca > intermediate > ocsp > url: "http://ocsp.adito.local"
+ca > intermediate > crl > url: "http://ca.adito.local/public/intermediate.crl.pem"
 ```
 
 ## Configure Nginx proxy
