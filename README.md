@@ -65,6 +65,8 @@ ca > intermediate > ocsp > url: "http://ocsp.adito.local"
 ca > intermediate > crl > url: "http://ca.adito.local/public/intermediate.crl.pem"
 ```
 
+**Do not forget to change the CA passphrases! (default: yyyy)**
+
 ## Configure Nginx proxy
 
 Nginx makes URLs nice and does the TLS / HTTPS job for us.
