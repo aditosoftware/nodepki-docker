@@ -7,8 +7,8 @@ RUN apt update && apt install -y \
     curl
 
 WORKDIR /root
-RUN curl -L https://github.com/aditosoftware/nodepki/archive/v1.0-rc2.tar.gz | tar xz && mv nodepki-1.0-rc2 nodepki
-RUN curl -L https://github.com/aditosoftware/nodepki-client/archive/v1.0-rc2.tar.gz | tar xz && mv nodepki-client-1.0-rc2 nodepki-client
+RUN curl -L https://github.com/aditosoftware/nodepki/archive/master.tar.gz | tar xz && mv nodepki-master nodepki
+RUN curl -L https://github.com/aditosoftware/nodepki-client/archive/master.tar.gz | tar xz && mv nodepki-client-master nodepki-client
 
 ### Add setup script to create persistent content
 ADD setup.sh /root/
