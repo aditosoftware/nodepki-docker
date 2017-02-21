@@ -19,10 +19,7 @@ RUN npm install
 WORKDIR /root/nodepki
 RUN npm install
 
-### genpki is executed manually with docker-compose run ...
-
 EXPOSE 8080
-EXPOSE 8081
 EXPOSE 2560
 
 ### Run server
