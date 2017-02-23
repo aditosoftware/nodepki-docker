@@ -230,3 +230,8 @@ Get Root cert for client
 Get Client certificate and key ...
 
     nodejs client request --type client --out out/
+
+
+## Import Root CA certificate on Linux and Windows
+
+See this repo for more information on how to get things working :-) https://github.com/ThomasLeister/root-certificate-deployment
