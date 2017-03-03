@@ -1,6 +1,6 @@
 FROM node:7-alpine
 
-RUN apk --update add --no-cache \
+RUN apk add --no-cache \
     openssl \
     curl \
     supervisor
