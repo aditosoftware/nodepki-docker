@@ -116,7 +116,7 @@ api.cert.pem and api.key.pem are the certificate files from the host directory d
 
 When your configuration is finished, create your CA:
 
-    sudo docker-compose run nodepki nodejs /root/nodepki/genpki.js
+    sudo docker-compose run nodepki node /root/nodepki/genpki.js
 
 You should now backup your configuration files and PKI by copying the data/ directory on the host.
 
@@ -132,11 +132,11 @@ You should now backup your configuration files and PKI by copying the data/ dire
 
     sudo docker-compose exec nodepki bash
     cd ../nodepki-client/
-    nodejs client
+    node client
 
 Request a certificate
 
-    nodejs client request --out out/
+    node client request --out out/
 
 The created cert.pem and key.pem are located in the "certs" directory on the host and in the "out" directory in the container. For further information see [NodePKI-Client README](https://github.com/ThomasLeister/nodepki-client/blob/master/README.md).
 
@@ -158,11 +158,11 @@ You can use external [NodePKI-Client](https://github.com/ThomasLeister/nodepki-c
 
 ### Add new API user
 
-    sudo docker-compose run nodepki nodejs /root/nodepki/nodepkictl.js useradd --username user1 --password pass
+    sudo docker-compose run nodepki node /root/nodepki/nodepkictl.js useradd --username user1 --password pass
 
 ### Remove API user
 
-    sudo docker-compose run nodepki nodejs /root/nodepki/nodepkictl.js userdel --username user1
+    sudo docker-compose run nodepki node /root/nodepki/nodepkictl.js userdel --username user1
 
 
 
@@ -184,13 +184,13 @@ Volumes:
 
 Request root certificate for browser import:
 
-    nodejs client getcacert --ca root --out out/root.cert.pem
+    node client getcacert --ca root --out out/root.cert.pem
 
 Import this file into your webbrowser.
 
 Request new webserver certificate:
 
-    nodejs client request --type server --out out/ --fullchain
+    node client request --type server --out out/ --fullchain
 
 (Use domain name as commonName)
 
@@ -211,11 +211,11 @@ Reload webserver:
 
 Get intermediate certificate + root certificate
 
-    nodejs client getcacert --ca intermediate --chain --out out/intermediate.cert.pem
+    node client getcacert --ca intermediate --chain --out out/intermediate.cert.pem
 
 Create Server certificate and key
 
-    nodejs client request --type server --fullchain --out out/
+    node client request --type server --fullchain --out out/
 
 (Use VPN domain name as common name)
 [uuid]/cert.pem and [uuid]/key.pem are server cert and key.
@@ -225,11 +225,11 @@ Create Server certificate and key
 
 Get Root cert for client
 
-    nodejs client getcacert --ca root --out out/root.cert.pem
+    node client getcacert --ca root --out out/root.cert.pem
 
 Get Client certificate and key ...
 
-    nodejs client request --type client --out out/
+    node client request --type client --out out/
 
 
 ## Import Root CA certificate on Linux and Windows

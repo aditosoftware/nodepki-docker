@@ -23,7 +23,7 @@ echo ">>>>>> Setting up NodePKI ..."
 cd /root/nodepki
 mkdir data/config
 cp config.default.yml data/config/config.yml
-nodejs nodepkictl useradd --username $API_USERNAME --password $API_PASSWORD
+node nodepkictl useradd --username $API_USERNAME --password $API_PASSWORD
 
 
 echo ">>>>>> Setup finished."

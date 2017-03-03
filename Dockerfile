@@ -1,16 +1,12 @@
-FROM ubuntu:xenial
+FROM node:7-alpine
 
-RUN apt update \
-    && apt install -y \
-        nodejs \
-        npm \
-        openssl \
-        curl \
-        supervisor \
-    && rm -rf /var/cache/apt
+RUN apk --update add --no-cache \
+    openssl \
+    curl \
+    supervisor
 
 ## Add supervisor config
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY supervisord.conf /etc/supervisor/supervisord.conf
 
 ### Add setup script to create persistent content
 ADD setup.sh /root/
@@ -29,4 +25,4 @@ RUN curl -L https://github.com/aditosoftware/nodepki/archive/master.tar.gz | tar
 EXPOSE 8080 5000 2560
 
 ### Run everything via supervisor
-CMD /usr/bin/supervisord
+CMD /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
