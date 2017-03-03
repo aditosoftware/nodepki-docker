@@ -9,7 +9,7 @@ RUN apk add --no-cache \
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 
 ### Add setup script to create persistent content
-ADD setup.sh /root/
+COPY setup.sh /root/
 
 WORKDIR /root
 RUN curl -L https://github.com/aditosoftware/nodepki/archive/master.tar.gz | tar xz && mv nodepki-master nodepki \
