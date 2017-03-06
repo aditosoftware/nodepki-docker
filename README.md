@@ -10,7 +10,10 @@ _   _           _      ____  _  _____
 By ADITO Software GmbH
 ```
 
-This Docker container contains the [NodePKI API Server](https://github.com/aditosoftware/nodepki/) as well as the [NodePKI reference client](https://github.com/aditosoftware/nodepki-client/).
+This Docker container contains the following components:
+* [NodePKI API Server](https://github.com/aditosoftware/nodepki/)
+* [NodePKI Webclient](https://github.com/aditosoftware/nodepki-webclient/)
+* [NodePKI reference CLI client](https://github.com/aditosoftware/nodepki-client/)
 
 ## Installation
 
@@ -32,7 +35,12 @@ These commands will download NodePKI and NodePKI-Client from GitHub and build th
 
 ## Configure docker container environment
 
-Set API_USERNAME and API_PASSWORD variables in docker-compose.yml. These initial credentials will be used to access the NodePKI-API.
+Set
+
+* API_USERNAME and
+* API_PASSWORD
+
+variables in docker-compose.yml. A initial user account for API access will be created with these login credentials.
 
 
 ## Create configuration files
@@ -56,7 +64,7 @@ Set domains and urls in data/nodepki/config/config.yml:
             domain: ca.adito.local
             port: 8080
         ocsp:
-            domain: ocsp.adito.local
+            domain: ca.adito.local
             port: 2560
 
 Configure OCSP and CRL URLs:
@@ -70,6 +78,16 @@ Configure OCSP and CRL URLs:
 
 
 **Do not forget to change the CA passphrases! (default: yyyy)**
+
+
+## Create CA
+
+When your configuration is finished, create your CA:
+
+    sudo docker-compose run nodepki node /root/nodepki/genpki.js
+
+You should now backup your configuration files and PKI by copying the data/ directory on the host.
+
 
 ## Configure Nginx proxy
 
@@ -138,19 +156,10 @@ Use an external Nginx reverse proxy server to make URLs nice and to offer TLS en
 * "nodepki" resolves to the NodePKI docker container, which exposes ports 8080, 5000 and 2560.
 
 
-## Create CA
-
-When your configuration is finished, create your CA:
-
-    sudo docker-compose run nodepki node /root/nodepki/genpki.js
-
-You should now backup your configuration files and PKI by copying the data/ directory on the host.
-
 
 ## Start Docker container
 
     sudo docker-compose up
-
 
 
 ## Using the integrated Web-based GUI client "NodePKI Webclient"
