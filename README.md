@@ -18,10 +18,9 @@ This Docker container contains the [NodePKI API Server](https://github.com/adito
 * Download and install docker-compose: https://docs.docker.com/compose/install/
 * Download this Git repo:
 
-```
-git clone git@github.com:aditosoftware/nodepki-docker.git
-cd nodepki-docker
-```
+
+    git clone git@github.com:aditosoftware/nodepki-docker.git
+    cd nodepki-docker
 
 
 ## Build Docker image
@@ -40,7 +39,7 @@ Set API_USERNAME and API_PASSWORD variables in docker-compose.yml. These initial
 
 To create the persistent config files, run the following command:
 
-    sudo docker-compose run nodepki bash /root/setup.sh
+    sudo docker-compose run nodepki /bin/sh /root/setup.sh
 
 
 ## Configure NodePKI and NodePKI-Client
@@ -153,23 +152,17 @@ You should now backup your configuration files and PKI by copying the data/ dire
     sudo docker-compose up
 
 
-## Add new API user
-
-    To be able to use an externel CLI client or the integrated WebClient, create a new user account:
-
-    sudo docker-compose run nodepki node /root/nodepki/nodepkictl.js useradd --username user1 --password password
-
 
 ## Using the integrated Web-based GUI client "NodePKI Webclient"
 
-Visit https://ca.adito.local/webclient/ and login with the account created before.
+Visit https://ca.adito.local/webclient/ and login with the account which was created via the docker-compose environment variables in the beginning.
 
 
 ## Using the integrated CLI client
 
 (in another shell instance)
 
-    sudo docker-compose exec nodepki bash
+    sudo docker-compose exec nodepki /bin/sh
     cd ../nodepki-client/
     node client
 
@@ -206,6 +199,10 @@ Volumes:
 * data: Contains persistent container data (mounted to /root/nodepki/data/ and /root/nodepki-client/data/)
 * certs: Can be used to transfer and store cert files. (mounted to /root/nodepki-client/out/)
 
+
+## Add new API user
+
+    sudo docker-compose run nodepki node /root/nodepki/nodepkictl.js useradd --username user1 --password password
 
 
 ## CLI client Examples

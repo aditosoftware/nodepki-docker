@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ###  Set up NodePKI-Client
 echo ">>>>>> Setting up NodePKI-Client ..."
