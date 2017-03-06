@@ -60,56 +60,83 @@ Set domains and urls in data/nodepki/config/config.yml:
             domain: ocsp.adito.local
             port: 2560
 
-```
-ca > intermediate > ocsp > url: "http://ocsp.adito.local"
-ca > intermediate > crl > url: "http://ca.adito.local/public/intermediate.crl.pem"
-```
+Configure OCSP and CRL URLs:
+
+    ca:
+        intermediate:
+            ocsp:
+                url: "http://ca.adito.local/ocsp"
+            crl:
+                url: "http://ca.adito.local/public/ca/intermediate/crl"
+
 
 **Do not forget to change the CA passphrases! (default: yyyy)**
 
 ## Configure Nginx proxy
 
-Nginx makes URLs nice and does the TLS / HTTPS job for us.
+Use an external Nginx reverse proxy server to make URLs nice and to offer TLS encryption.
+
+    ###
+    ### NodePKI API server (unencrypted)
+    ###
 
     server {
         listen 80;
         server_name ca.adito.local;
+
+        location = / {
+                rewrite ^ https://ca.adito.local/webclient/ permanent;
+        }
 
         location /api {
                 rewrite ^ https://$host$request_uri? permanent;
         }
 
         location /public {
-                proxy_pass http://localhost:8080/public;
+                proxy_pass http://nodepki:8080/public;
+        }
+
+        location /ocsp {
+                proxy_pass http://nodepki:2560;
+        }
+
+        location /webclient/ {
+                rewrite ^ https://$host$request_uri? permanent;
         }
     }
+
+
+    ###
+    ### NodePKI API server (encrypted)
+    ###
 
     server {
         listen 443 ssl;
         server_name ca.adito.local;
 
-        ssl_certificate /etc/nginx/myssl/api.cert.pem;
-        ssl_certificate_key /etc/nginx/myssl/api.key.pem;
+        ssl_certificate /etc/nginx/certs/ca.adito.local.crt;
+        ssl_certificate_key /etc/nginx/certs/ca.adito.local.key;
+
+        location = / {
+                rewrite ^ https://ca.adito.local/webclient/ permanent;
+        }
 
         location /api {
-                proxy_pass http://localhost:8080/api;
+                proxy_pass http://nodepki:8080/api;
         }
 
         location /public {
-                proxy_pass http://localhost:8080/public;
+                proxy_pass http://nodepki:8080/public;
+        }
+
+        location /webclient/ {
+                proxy_pass http://nodepki:5000/;
         }
     }
 
-    server {
-        listen 80;
-        server_name ocsp.adito.local;
 
-        location / {
-                proxy_pass http://localhost:2560;
-        }
-    }
-
-api.cert.pem and api.key.pem are the certificate files from the host directory data/nodepki/mypki/apicert/
+* api.cert.pem and api.key.pem are the certificate files from the host directory ./data/nodepki/mypki/apicert/
+* "nodepki" resolves to the NodePKI docker container, which exposes ports 8080, 5000 and 2560.
 
 
 ## Create CA
@@ -126,7 +153,19 @@ You should now backup your configuration files and PKI by copying the data/ dire
     sudo docker-compose up
 
 
-## Using the integrated client
+## Add new API user
+
+    To be able to use an externel CLI client or the integrated WebClient, create a new user account:
+
+    sudo docker-compose run nodepki node /root/nodepki/nodepkictl.js useradd --username user1 --password password
+
+
+## Using the integrated Web-based GUI client "NodePKI Webclient"
+
+Visit https://ca.adito.local/webclient/ and login with the account created before.
+
+
+## Using the integrated CLI client
 
 (in another shell instance)
 
@@ -141,7 +180,7 @@ Request a certificate
 The created cert.pem and key.pem are located in the "certs" directory on the host and in the "out" directory in the container. For further information see [NodePKI-Client README](https://github.com/ThomasLeister/nodepki-client/blob/master/README.md).
 
 
-## Using an external client
+## Using an external CLI client
 
 You can use external [NodePKI-Client](https://github.com/ThomasLeister/nodepki-client/) instances to retrieve certificates by adding another API user account. The external client must be configured to send requests to the container host.
 
@@ -156,21 +195,12 @@ You can use external [NodePKI-Client](https://github.com/ThomasLeister/nodepki-c
         tls: true
 
 
-### Add new API user
-
-    sudo docker-compose run nodepki node /root/nodepki/nodepkictl.js useradd --username user1 --password pass
-
-### Remove API user
-
-    sudo docker-compose run nodepki node /root/nodepki/nodepkictl.js userdel --username user1
-
-
-
 ## Exposed ports and volumes
 
 Ports:
 * 8080 (API + HTTP server for certificate and CRL retrieval)
 * 2560 (OCSP server)
+* 5000 (NodePKI Webclient - HTTP)
 
 Volumes:
 * data: Contains persistent container data (mounted to /root/nodepki/data/ and /root/nodepki-client/data/)
@@ -178,7 +208,7 @@ Volumes:
 
 
 
-## Examples
+## CLI client Examples
 
 ### Certificate for Nginx Webserver
 
@@ -202,7 +232,6 @@ Certificates are in certs/[uuid]/ on your host machine. Copy them to your webser
 Reload webserver:
 
     sudo systemctl restart nginx
-
 
 
 ### OpenVPN certificates
