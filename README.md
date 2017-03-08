@@ -21,9 +21,10 @@ This Docker container contains the following components:
 * Download and install docker-compose: https://docs.docker.com/compose/install/
 * Download this Git repo:
 
-
-    git clone git@github.com:aditosoftware/nodepki-docker.git
-    cd nodepki-docker
+```
+git clone git@github.com:aditosoftware/nodepki-docker.git
+cd nodepki-docker
+```
 
 
 ## Build Docker image
@@ -67,6 +68,7 @@ Set domains and urls in data/nodepki/config/config.yml:
             domain: ca.adito.local
             port: 2560
 
+
 Configure OCSP and CRL URLs:
 
     ca:
@@ -76,8 +78,12 @@ Configure OCSP and CRL URLs:
             crl:
                 url: "http://ca.adito.local/public/ca/intermediate/crl"
 
+Both URLs correspond to the public URLs as they are defined in the HTTP reverse proxy (See Nginx config). Webbrowsers will use these URLs to check certificate validity.
+
 
 **Do not forget to change the CA passphrases! (default: yyyy)**
+
+Change the remaining settings according to your needs.
 
 
 ## Create CA
@@ -86,7 +92,7 @@ When your configuration is finished, create your CA:
 
     sudo docker-compose run nodepki node /root/nodepki/genpki.js
 
-You should now backup your configuration files and PKI by copying the data/ directory on the host.
+You should now backup your configuration files and PKI by copying the data/ directory on the host. This is where the important data lives.
 
 
 ## Configure Nginx proxy
@@ -155,16 +161,24 @@ Use an external Nginx reverse proxy server to make URLs nice and to offer TLS en
 * api.cert.pem and api.key.pem are the certificate files from the host directory ./data/nodepki/mypki/apicert/
 * "nodepki" resolves to the NodePKI docker container, which exposes ports 8080, 5000 and 2560.
 
+Fit the above Nginx configuration to your environment.
 
 
 ## Start Docker container
 
     sudo docker-compose up
 
+You can start the container in background mode by attaching the ``` -d``` flag
+
+### Stop Docker container
+
+    sudo docker-compose stop
+
 
 ## Using the integrated Web-based GUI client "NodePKI Webclient"
 
 Visit https://ca.adito.local/webclient/ and login with the account which was created via the docker-compose environment variables in the beginning.
+
 
 
 ## Using the integrated CLI client
@@ -185,6 +199,7 @@ The created cert.pem and key.pem are located in the "certs" directory on the hos
 ## Using an external CLI client
 
 You can use external [NodePKI-Client](https://github.com/ThomasLeister/nodepki-client/) instances to retrieve certificates by adding another API user account. The external client must be configured to send requests to the container host.
+
 
 ### Setting up secure API access
 
