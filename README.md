@@ -86,11 +86,13 @@ Both URLs correspond to the public URLs as they are defined in the HTTP reverse 
 Change the remaining settings according to your needs.
 
 
-## Create CA
+## First start
 
-When your configuration is finished, create your CA:
+Start NodePKI for the first time by executing
 
-    sudo docker-compose run nodepki node /root/nodepki/genpki.js
+    sudo docker-compose up
+
+Your CA will be created on the first startup. You can stop the container again by pressing CTRL+C
 
 You should now backup your configuration files and PKI by copying the data/ directory on the host. This is where the important data lives.
 
@@ -169,6 +171,7 @@ Fit the above Nginx configuration to your environment.
     sudo docker-compose up
 
 You can start the container in background mode by attaching the ``` -d``` flag
+
 
 ### Stop Docker container
 
