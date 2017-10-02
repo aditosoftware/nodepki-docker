@@ -22,7 +22,7 @@ This Docker container contains the following components:
 * Download this Git repo:
 
 ```
-git clone git@github.com:aditosoftware/nodepki-docker.git
+git clone https://github.com/aditosoftware/nodepki-docker.git
 cd nodepki-docker
 ```
 
