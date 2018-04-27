@@ -1,6 +1,6 @@
 # NodePKI Docker Image
 
-```   
+```
 _   _           _      ____  _  _____
 | \ | | ___   __| | ___|  _ \| |/ /_ _|
 |  \| |/ _ \ / _` |/ _ \ |_) | ' / | |
@@ -48,7 +48,7 @@ variables in docker-compose.yml. A initial user account for API access will be c
 
 To create the persistent config files, run the following command:
 
-    sudo docker-compose run nodepki /bin/sh /root/setup.sh
+    sudo docker-compose run nodepki /bin/sh /opt/nodepki/setup.sh
 
 
 ## Configure NodePKI and NodePKI-Client
@@ -223,13 +223,13 @@ Ports:
 * 5000 (NodePKI Webclient - HTTP)
 
 Volumes:
-* data: Contains persistent container data (mounted to /root/nodepki/data/ and /root/nodepki-client/data/)
-* certs: Can be used to transfer and store cert files. (mounted to /root/nodepki-client/out/)
+* data: Contains persistent container data (mounted to /opt/nodepki/nodepki/data/ and /opt/nodepki/nodepki-client/data/)
+* certs: Can be used to transfer and store cert files. (mounted to /opt/nodepki/nodepki-client/out/)
 
 
 ## Add new API user
 
-    sudo docker-compose run nodepki node /root/nodepki/nodepkictl.js useradd --username user1 --password password
+    sudo docker-compose run nodepki node /opt/nodepki/nodepki/nodepkictl.js useradd --username user1 --password password
 
 
 ## CLI client Examples
