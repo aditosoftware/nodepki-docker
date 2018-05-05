@@ -16,7 +16,7 @@ This Docker container contains the following components:
 * [NodePKI reference CLI client](https://github.com/aditosoftware/nodepki-client/)
 
 ## Installation (productive usage)
-See [README_PROD.md](README_PROD.md) for more information about the prodictive usage of nodepki.
+See [production README.md](production/README.md) for more information about the prodictive usage of nodepki.
 
 ## Installation (development usage)
 

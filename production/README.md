@@ -46,11 +46,11 @@ Required host files entries for local development setups:
 
 ### Start up
 ```bash
-docker-compose -f docker-compose.yml up
+docker-compose up
 ```
 
 ### Clean up
 ```bash
-docker-compose -f docker-compose.yml down
+docker-compose down
 rm -rf /opt/data/nodepki*/*
 ```
