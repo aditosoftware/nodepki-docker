@@ -40,7 +40,7 @@ Now you need to set/change the app variables inside `.env`.
 
 Required host files entries for local development setups:
 ```bash
-127.0.0.1 ca-admin.example.com ca.example.com ocsp.example.com
+127.0.0.1 admin-ca.example.com ca.example.com ocsp.example.com
 ```
 **Notice**: Adjust your `/etc/hosts` entries according to your values inside `.env`.
 
