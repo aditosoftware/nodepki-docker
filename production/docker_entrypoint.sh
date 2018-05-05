@@ -29,7 +29,7 @@ if [ ! -f /opt/nodepki-webclient/data/config/config.yml ]; then
   mkdir config/
   cp ../config.default.yml config/config.yml
 
-  sed -e "s/CA_WEBCLIENT_HTTP_URL/$CA_WEBCLIENT_HTTP_URL/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
+  sed -e "s#CA_WEBCLIENT_HTTP_URL#$CA_WEBCLIENT_HTTP_URL#" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/CA_API_SERVER_URL/$CA_API_SERVER_URL/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/COUNTRY_CODE/$COUNTRY_CODE/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/STATE_NAME/$STATE_NAME/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
@@ -60,8 +60,9 @@ if [ ! -f /opt/nodepki/data/config/config.yml ]; then
   sed -e "s/ORGANIZATION_NAME/$ORGANIZATION_NAME/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/ROOT_CA_COMMON_NAME/$ROOT_CA_COMMON_NAME/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/INTERMEDIATE_CA_COMMON_NAME/$INTERMEDIATE_CA_COMMON_NAME/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
-  sed -e "s/CA_OSCP_SERVER_HTTP_URL/$CA_OSCP_SERVER_HTTP_URL/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
-  sed -e "s/CA_CRL_SERVER_HTTP_URL/$CA_CRL_SERVER_HTTP_URL/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
+  sed -e "s#CA_OSCP_SERVER_HTTP_URL#$CA_OSCP_SERVER_HTTP_URL#" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
+  sed -e "s#CA_CRL_SERVER_HTTP_URL#$CA_CRL_SERVER_HTTP_URL#" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
+  sed -e "s/CERT_LIFETIME_IN_DAYS/$CERT_LIFETIME_IN_DAYS/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
 
   cd /opt/nodepki/
 
