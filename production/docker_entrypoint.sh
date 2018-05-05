@@ -72,6 +72,6 @@ if [ ! -f /opt/nodepki/data/config/config.yml ]; then
 
 fi
 
-echo ">>>>>> Setting up NodePKI-Client ..."
+echo ">>>>>> Finished setting up NodePKI ..."
 # Start the application
 /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
