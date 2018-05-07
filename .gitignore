@@ -5,5 +5,3 @@
 certs/
 data/
 .env
-buildit.sh
-pushit.sh
