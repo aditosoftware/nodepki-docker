@@ -12,11 +12,14 @@ if [ ! -f /opt/nodepki-client/data/config/config.yml ]; then
   sed -e "s/API_USERNAME/$API_USERNAME/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/API_PASSWORD/$API_PASSWORD/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/CA_API_SERVER_URL/$CA_API_SERVER_URL/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
+  sed -e "s/CA_API_SERVER_PLAIN_PORT/$CA_API_SERVER_PLAIN_PORT/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
+  sed -e "s/CA_API_SERVER_TLS_PORT/$CA_API_SERVER_TLS_PORT/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
+  sed -e "s/CA_API_SERVER_TLS_ENABLED/$CA_API_SERVER_TLS_ENABLED/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/COUNTRY_CODE/$COUNTRY_CODE/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/STATE_NAME/$STATE_NAME/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/LOCALITY_NAME/$LOCALITY_NAME/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/ORGANIZATION_NAME/$ORGANIZATION_NAME/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
-  sed -e "s/CERT_LIFETIME_IN_DAYS/$CERT_LIFETIME_IN_DAYS/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
+  sed -e "s/CERT_MAX_LIFETIME_IN_DAYS/$CERT_MAX_LIFETIME_IN_DAYS/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
 
   cd /opt/nodepki-client/
 
@@ -48,8 +51,11 @@ if [ ! -f /opt/nodepki/data/config/config.yml ]; then
   mkdir config/
   cp ../config.default.yml config/config.yml
 
+  sed -e "s/CA_API_SERVER_BIND_IP_ADDRESS/$CA_API_SERVER_BIND_IP_ADDRESS/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/CA_API_SERVER_URL/$CA_API_SERVER_URL/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/CA_OSCP_SERVER_URL/$CA_OSCP_SERVER_URL/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
+  sed -e "s/CA_API_SERVER_PLAIN_PORT/$CA_API_SERVER_PLAIN_PORT/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
+  sed -e "s/CA_OSCP_SERVER_PORT/$CA_OSCP_SERVER_PORT/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/ROOT_PASSPHRASE/$ROOT_PASSPHRASE/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/INTERMEDIATE_PASSPHRASE/$INTERMEDIATE_PASSPHRASE/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/OCSP_PASSPHRASE/$OCSP_PASSPHRASE/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
@@ -62,7 +68,8 @@ if [ ! -f /opt/nodepki/data/config/config.yml ]; then
   sed -e "s/INTERMEDIATE_CA_COMMON_NAME/$INTERMEDIATE_CA_COMMON_NAME/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s#CA_OSCP_SERVER_HTTP_URL#$CA_OSCP_SERVER_HTTP_URL#" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s#CA_CRL_SERVER_HTTP_URL#$CA_CRL_SERVER_HTTP_URL#" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
-  sed -e "s/CERT_LIFETIME_IN_DAYS/$CERT_LIFETIME_IN_DAYS/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
+  sed -e "s/CERT_MIN_LIFETIME_IN_DAYS/$CERT_MIN_LIFETIME_IN_DAYS/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
+  sed -e "s/CERT_MAX_LIFETIME_IN_DAYS/$CERT_MAX_LIFETIME_IN_DAYS/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
 
   cd /opt/nodepki/
 

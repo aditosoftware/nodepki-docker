@@ -22,6 +22,7 @@ This Docker container contains the following components:
 - The example setup from the `docker-compose.yml` file does also use a Traefik load balancing service. Remove this service (`traefik`) and publish the ports `8080:8080`, `2560:2560` and `5000:5000` if you would like to access `nodepki` directly.
 - Traefik only serves `http` to ease the setup process. Switch to `https` for productive usage!
 - The `docker-compose.yml` file works with variable substitution. It's therefore required to start this setup by using Docker Compose. If the `docker-compose.yml` file is used for Docker Swarm Stacks, replace the variables (e.g. `${CA_API_SERVER_URL}`) with real values.
+- Set `CA_API_SERVER_PLAIN_PORT` to `80` and `CA_API_SERVER_TLS_ENABLED` to `false` if you are running nodepki behind a reverse proxy which handles the SSL/TLS termination. 
 
 ### Prerequisites
 
