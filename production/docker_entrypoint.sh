@@ -34,6 +34,11 @@ if [ ! -f /opt/nodepki-webclient/data/config/config.yml ]; then
 
   sed -e "s#CA_WEBCLIENT_HTTP_URL#$CA_WEBCLIENT_HTTP_URL#" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/CA_API_SERVER_URL/$CA_API_SERVER_URL/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
+  sed -e "s/CA_WEBCLIENT_BIND_IP_ADDRESS/$CA_WEBCLIENT_BIND_IP_ADDRESS/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
+  sed -e "s/CA_WEBCLIENT_SERVER_PORT/$CA_WEBCLIENT_SERVER_PORT/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
+  sed -e "s/CA_API_SERVER_PLAIN_PORT/$CA_API_SERVER_PLAIN_PORT/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
+  sed -e "s/CA_API_SERVER_TLS_PORT/$CA_API_SERVER_TLS_PORT/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
+  sed -e "s/CA_API_SERVER_TLS_ENABLED/$CA_API_SERVER_TLS_ENABLED/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/COUNTRY_CODE/$COUNTRY_CODE/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/STATE_NAME/$STATE_NAME/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml
   sed -e "s/LOCALITY_NAME/$LOCALITY_NAME/" config/config.yml > config/config.yml.tmp && mv config/config.yml.tmp config/config.yml

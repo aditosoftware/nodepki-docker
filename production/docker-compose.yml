@@ -27,10 +27,10 @@ services:
       traefik.ca-admin.port: 5000
       traefik.ca-admin.frontend.rule: Host:${CA_WEBCLIENT_SERVER_URL}
       traefik.ca-admin.protocol: http
-      traefik.ca.port: 8080
+      traefik.ca.port: ${CA_API_SERVER_PLAIN_PORT}
       traefik.ca.frontend.rule: Host:${CA_API_SERVER_URL}
       traefik.ca.protocol: http
-      traefik.ocsp.port: 2560
+      traefik.ocsp.port: ${CA_OSCP_SERVER_PORT}
       traefik.ocsp.frontend.rule: Host:${CA_OSCP_SERVER_URL}
       traefik.ocsp.protocol: http
 
