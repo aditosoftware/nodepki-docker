@@ -2,14 +2,14 @@ version: '3.4'
 
 services:
   nodepki:
-    image: pschmid/nodepki-docker:dev
-    restart: always
+    image: adito/nodepki-docker:latest
+    restart: unless-stopped
     env_file:
       - .env
     environment:
-      TZ: Europe/Zurich
+      TZ: Europe/Berlin
     healthcheck:
-      test: ["CMD-SHELL", "curl --fail http://localhost:5000 || exit 1"]
+      test: ["CMD-SHELL", "curl --fail http://localhost:$${CA_WEBCLIENT_SERVER_PORT} || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -17,14 +17,13 @@ services:
       - /opt/data/nodepki:/opt/nodepki/data
       - /opt/data/nodepki-client:/opt/nodepki-client/data
       - /opt/data/nodepki-webclient:/opt/nodepki-webclient/data
-        # TODO: Check: Is this last Docker Volume really required?
       - /opt/data/nodepki-certs:/opt/nodepki-client/out
     extra_hosts:
       - ${CA_API_SERVER_URL}:127.0.0.1
     networks:
       - traefik_transit
     labels:
-      traefik.ca-admin.port: 5000
+      traefik.ca-admin.port: ${CA_WEBCLIENT_SERVER_PORT}
       traefik.ca-admin.frontend.rule: Host:${CA_WEBCLIENT_SERVER_URL}
       traefik.ca-admin.protocol: http
       traefik.ca.port: ${CA_API_SERVER_PLAIN_PORT}
@@ -36,7 +35,9 @@ services:
 
   traefik:
     image: traefik:1.6-alpine
-    restart: always
+    restart: unless-stopped
+    environment:
+      TZ: Europe/Berlin
     ports:
       - 80:80
       - 443:443
