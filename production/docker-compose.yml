@@ -1,0 +1,52 @@
+version: '3.4'
+
+services:
+  nodepki:
+    image: adito/nodepki-docker:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      TZ: Europe/Berlin
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost:$${CA_WEBCLIENT_SERVER_PORT} || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    volumes:
+      - /opt/data/nodepki:/opt/nodepki/data
+      - /opt/data/nodepki-client:/opt/nodepki-client/data
+      - /opt/data/nodepki-webclient:/opt/nodepki-webclient/data
+      - /opt/data/nodepki-certs:/opt/nodepki-client/out
+    extra_hosts:
+      - ${CA_API_SERVER_URL}:127.0.0.1
+    networks:
+      - traefik_transit
+    labels:
+      traefik.ca-admin.port: ${CA_WEBCLIENT_SERVER_PORT}
+      traefik.ca-admin.frontend.rule: Host:${CA_WEBCLIENT_SERVER_URL}
+      traefik.ca-admin.protocol: http
+      traefik.ca.port: ${CA_API_SERVER_PLAIN_PORT}
+      traefik.ca.frontend.rule: Host:${CA_API_SERVER_URL}
+      traefik.ca.protocol: http
+      traefik.ocsp.port: ${CA_OSCP_SERVER_PORT}
+      traefik.ocsp.frontend.rule: Host:${CA_OSCP_SERVER_URL}
+      traefik.ocsp.protocol: http
+
+  traefik:
+    image: traefik:1.6-alpine
+    restart: unless-stopped
+    environment:
+      TZ: Europe/Berlin
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    command: --docker --docker.domain=example.com --docker.watch --web --loglevel=WARN
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - traefik_transit
+
+networks:
+  traefik_transit:
