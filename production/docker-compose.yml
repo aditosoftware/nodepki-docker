@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   nodepki:
-    image: adito/nodepki-docker:latest
+    image: adito/nodepki-docker:production
     restart: unless-stopped
     env_file:
       - .env
